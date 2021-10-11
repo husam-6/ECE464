@@ -51,18 +51,17 @@ def test_Q1():
 
     assert result == q
 
-##double check lol 
-def test_Q2():
-    result = connection.execute("select s.sname, s.sid from sailors s where not exists (select b.bid from boats b where b.color = 'red' and not exists (select * from reserves r where r.bid = b.bid and r.sid = s.sid));").fetchall()
+def test_Q2():    
+    result = connection.execute("select sid, sname from (select s.sid, s.sname, count(distinct b.bid) as count_r from sailors s, reserves r, boats b where s.sid = r.sid and b.bid = r.bid and b.color = 'red' group by s.sid)x where x.count_r = (select count(*) from (select distinct b.bid from boats b where b.color = 'red')t);").fetchall()
 
-    #Get all bid's for reserved boats
-    subqOne = session.query(reserves.bid).filter(reserves.bid == boats.bid, reserves.sid)
+    #Get count of distinct boat bids with color red
+    subqOne = session.query(func.count(boats.bid)).filter(boats.color == 'red').distinct(boats.bid).scalar()
 
-    #Get bid's for the red boats that have not been reserved
-    subqTwo = session.query(boats.bid).filter(boats.color=='red', boats.bid.notin_(subqOne))
+    #Get counts of sailors who reserved distinct red boats
+    subqTwo = session.query(sailors.sid, sailors.sname, func.count(boats.bid.distinct()).label('count_r')).join(reserves, reserves.bid == boats.bid).join(sailors, sailors.sid == reserves.sid).filter(boats.color == 'red').group_by(sailors.sid).subquery()
 
-    #Get sailors who have reserved all red boats
-    q = session.query(sailors.sname, sailors.sid, boats.bid).filter(boats.bid.in_(subqTwo)).all()
+    #Filter out sailors who don't have the same count of reserved distinct red boats as the number of distinct red boats
+    q = session.query(subqTwo.c.sid, subqTwo.c.sname).filter(subqTwo.c.count_r == subqOne).all()
 
     assert q == result
 
