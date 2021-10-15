@@ -31,7 +31,7 @@ class reserves(base):
     bid = Column(Integer, ForeignKey('boats.bid'))
     day = Column(DateTime, primary_key=True)
 
-    sailor = relationship('sailor')
+    sailor = relationship('sailors')
 
     def __repr__(self):
         return "<Reservation(sailor id='%s', boat id='%s', date='%s')>" % (self.sid, self.bid, self.day)
@@ -44,7 +44,7 @@ class boats(base):
     color = Column(String)
     length = Column(Integer)
 
-    reservations = relationship('reservation', backref=backref('boat', cascade='delete'))
+    reservations = relationship('reserves', backref=backref('boats', cascade='delete'))
 
     def __repr__(self):
         return "<Boat(boat id='%s', bname id='%s', bcolor='%s')>" % (self.bid, self.bname, self.color)
@@ -64,8 +64,6 @@ class broken(base):
     sid = Column(Integer, primary_key=True)       #sailor who broke it 
     fixed = Column(Integer)
 
-    boats = relationship('boats')
-
     def __repr__(self):
         return "<Broken(boat bid='%s', sailor responsible = '%s', fixed = '%s')>" % (self.bid, self.sid, self.fixed)
 
@@ -79,8 +77,6 @@ class costs(base):
     dateBroke = Column(DateTime)                           #Broken date
     expected = Column(DateTime)                            #Expected return date
 
-    costs = relationship('costs', backref=backref('costs', cascade='delete'))
-
     def __repr__(self):
         return "<Costs(broken boat id='%s', cost='%s', expected return = '%s')>" % (self.bid, self.cost, self.expected)
 
@@ -90,7 +86,7 @@ base.metadata.create_all(engine)
 ####        Test Queries from part 1            ####
 
 connection = engine.connect()
-## Question 1
+
 def test_Q1():
     result = connection.execute("select b.bid, b.bname, count(*) as reservations from boats b, reserves r where b.bid = r.bid group by b.bid order by count(*) desc;").fetchall()
     
