@@ -22,6 +22,24 @@ create table boats(
 	length int
 );
 
+create table broken(
+    br_id int,
+    bid int,
+	sid int,
+	fixed int,
+    PRIMARY KEY (br_id, bid, sid)
+);
+
+create table costs(
+    br_id int, 
+    bid int,
+    cost int, 
+    beginRepair date,
+    dateBroken date,  
+    expected date,
+    PRIMARY KEY (br_id, bid)
+);
+
 insert into sailors values (22,'dusting',7,45);
 insert into sailors values (29,'brutus',1,33);
 insert into sailors values (31,'lubber',8,55);
@@ -86,3 +104,18 @@ insert into boats values (109,'Driftwood','blue', 35);
 insert into boats values (110,'Klapser','red', 30);
 insert into boats values (111,'Sooney','green', 28);
 insert into boats values (112,'Sooney','red', 28);
+
+-- Insert added data for part 3
+insert into broken values (0, 104, 23, 1);
+insert into broken values (1, 104, 24, 0);
+insert into broken values (2, 105, 35, 1);
+insert into broken values (3, 105, 59, 1);
+insert into broken values (4, 105, 60, 0);
+insert into broken values (5, 106, 60, 0);
+
+insert into costs values (0, 104, 1500, '1998/10/10', '1998/10/5', '1998/10/12');
+insert into costs values (1, 104, 5000, '1998/9/1', '1998/8/12', '1998/10/8');
+insert into costs values (2, 105, 2000, '1998/8/1', '1998/7/12', '1998/12/8');
+insert into costs values (3, 105, 1200, '1998/8/1', '1998/7/1', '1998/9/1');
+insert into costs values (4, 105, 500, '1998/11/12', '1998/11/9', '1998/12/4');
+insert into costs values (5, 106, 1000, '1998/10/10', '1998/10/5', '1998/11/4');
