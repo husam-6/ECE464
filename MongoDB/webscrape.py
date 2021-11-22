@@ -42,6 +42,7 @@ def scrapeData(url):
             player["country"] = row.find(class_="playerCountry").text
             #For goals
             # player["goals"] = row.find(class_="mainStat").text
+            
             #For assists
             player["assists"] = row.find(class_="mainStat").text
             tmp = row.find("span", class_="badge-image-container")
@@ -72,12 +73,9 @@ except:
 url2 = "https://www.premierleague.com/stats/top/players/goal_assist?se=-1"
 assists = scrapeData(url2)
 
-to_ignore = ['key1', 'key2', 'key3', ...]
-filtered_dict = {key: value for (key, value) in original_dict.items() if key.rsplit('_', 1)[-1] not in to_ignore}
-
 # try: 
 for item in assists: 
-    db.goals.update_one({"name": {"$eq": item.get("name")}}, item)
+    db.goals.update_one({"name": {"$eq": item.get("name")}}, {"assists": item.get("assists")})
 
 print(f"Updated {len(assists)} documents")
 # except: 
@@ -87,43 +85,3 @@ print(f"Updated {len(assists)} documents")
     # print("{name}\t\t\t{country}\t\t\t{club}\t\t\t{goals}".format(**players[i]))
 
 
-
-
-
-# for i in range(1,1000):
-#     url = f"https://www.premierleague.com/players/{i}"
-
-#     # driver.set_page_load_timeout(5)
-#     # time.sleep(1)
-#     driver.get(url)
-#     time.sleep(0.5)
-
-#     html = driver.page_source
-#     soup = BeautifulSoup(html, "html.parser")
-
-#     name = soup.find("div", class_="name")
-#     if name == None: 
-#         continue
-#     playerName.append(name.text)
-#     # print(name.text)
-
-#     country = soup.find("span", class_="playerCountry")
-#     countries.append(country.text)
-#     # print(country.text)
-
-#     pos = soup.find("div", class_="info")
-#     position.append(pos.text)
-#     # print(pos.text)
-
-#     for row in soup.find("tbody").find_all('tr'):
-#         # print(row.th.text)
-#         if row.th.text == "Appearances":
-#             appearances.append(row.td.text)
-#         elif row.th.text == "Goals":
-#             goals.append(row.td.text)
-#         elif row.th.text == "Assists":
-#             assists.append(row.td.text)
-
-
-# for i in range(0,1000):
-#     print(f"{playerName[i]}\t\t{countries[i]}\t\t{position[i]}\t\t{appearances[i]}\t\t{goals[i]}\t\t{assists[i]}")
