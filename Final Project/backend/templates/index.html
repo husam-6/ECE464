@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Source+Code+Pro:wght@300&display=swap');
+  </style> 
+  <meta charset="UTF-8"/>
+  <meta name="viewport"
+  content="width-device-width, initial-scale=1.0"/>
+  <title>Schedule Planner</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style-mobile.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script> -->
+  <!-- <script type="text/javascript" src="templates/js/firstRun.js" defer></script> -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/firstRun.js') }}" defer></script>
+  
+
+</head>
+
+<body id="container">
+  <div id="title"> 
+    <h1>Schedule Planner</h1>
+  </div>
+  <div id="planner" class='fade border'>
+
+    <div class=underline>
+      <h1> Planner </h1>
+    </div>  
+
+    <div id="planner-form" class='fade'>
+      <form class="form" onsubmit="window.location.reload()">
+          <input type="date" class="due-date"  size="20">
+          <input type="text" class="plan-inp" placeholder="Assignment Name" size="20" required>
+          <select class="priority">
+            <option value="none" selected disabled hidden> Select Type </option>
+            <option value="Homework">Homework</option>
+            <option value="Exam">Exam</option>
+            <option value="Project">Project</option>
+          </select>
+          <button type="submit" id="submit-button" class="submit-button" onclick="window.location.reload()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+      </form>
+    </div>
+
+    <div class="wrappe">
+      <ul class="items ">
+      </ul>
+    </div>
+
+    <!-- <script type="text/javascript" src="js/planner.js" defer></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/planner.js') }}" defer></script>
+    
+
+  </div>
+  
+  <div id="announcements" class='fade border'>
+    <div class=underline>
+      <h1> Announcements </h1>
+    </div>
+
+    <div id="announcement-form" class='fade'>
+      <form class="announce-form">
+        <input type="date" class="date" size="20">
+        <input type="text" class="announcement" placeholder="Announcement" size="20" required>
+        <button type="submit" class="submit-button"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+
+    <div>
+      <ul class="announce-items">
+      </ul>
+    </div>
+    
+    <!-- <script type="text/javascript" src="templates/js/announcements.js" defer></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/announcements.js') }}" defer></script>
+  </div>
+  
+  <div id="calendar" class='fade'>
+    <!-- <script type="text/javascript" src="templates/js/calendar.js"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/calendar.js') }}" defer></script>
+  </div>
+ 
+
+</body>
+<footer> 
+<a href="#top">
+  <button class="top-button"><i class="fas fa-angle-up"></i></button>
+</a>
+</footer>
+
+  <button class="left fade"><i class="fa fa-caret-left" aria-hidden="true"></i> Back </button> 
+  <button class="right fade">Next<i class="fa fa-caret-right" aria-hidden="true"></i> </button> 
+
+  <div id="button-div2" class="button-div2 fade">
+    <button class="sort-button2"><span class="sort-button-span2">Sort by Date<i class="fa fa-sort-amount-asc" aria-hidden="true"></i></span></button>
+    <button class="clear-all2"><span class="clear-button-span2">Clear All<i class="fa fa-bomb" aria-hidden="true"></i></span></button>
+  </div>
+  <div id="button-div" class="button-div fade">
+    <button class="sort-button"><span class="sort-button-span">Sort by Date<i class="fa fa-sort-amount-asc" aria-hidden="true"></i></span> </button>
+    <button class="clear-all" onclick="window.location.reload()"><span class="clear-button-span">Clear All<i class="fa fa-bomb" aria-hidden="true"></i></span> </button>
+  </div>
+</html>

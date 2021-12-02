@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
+  </style> 
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/authstyle.css') }}">
+  <title>Authentication</title>
+
+</head>
+
+<body id="container">
+  <form action="/login" method="POST">
+  
+  <fieldset>
+    
+    <legend class="sign">Sign In</legend>
+    
+    <label for="username" class="vhide">Username</label>
+    <input id="username" name="username" type="text" placeholder="Username" required minlength="3">
+    
+    <label for="password" class="vhide">Password</label>
+    <input id="password" name="password" type="password" placeholder="Password" required minlength="6">
+    <button class="signin" type="submit">Submit</button>
+    
+  </fieldset>
+  
+</form> 
+</body>
+</html>
