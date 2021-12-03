@@ -4,13 +4,13 @@ function firstRun() {
     {
         animationScript(); 
         myStorage.setItem('flag', 'true'); 
-    } 
+    }
 }
 function animationScript() {
-    var link = document.createElement('link'); 
-    link.rel = 'stylesheet'; 
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'animation.css'; 
-    document.getElementsByTagName('HEAD')[0].appendChild(link); 
+    link.href = 'static/styles/animation.css';
+    document.getElementsByTagName('HEAD')[0].appendChild(link);
 }
 firstRun();
