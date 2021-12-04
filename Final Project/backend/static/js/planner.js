@@ -105,7 +105,9 @@ function renderItems(items){
     // <button class='delete-button' onclick='window.location.reload()'>-</button>`;   
     li.innerHTML = `
     ${out} &emsp; ${items[i].class}: ${items[i].name}
-    <button class='delete-button' name="sub-btn" value="planItem">-</button>`;
+
+    <button type="submit" class='delete-button' name="delete_button" value="planItem">-</button>
+    <a href="http://127.0.0.1:5000/edit&id=${items[i].id}" role="button" class='edit-button' name="edit_button" value="planItem"><i class="fas fa-edit"></i></a>`;
     
     todoItemsList.append(li);
   }
@@ -152,7 +154,7 @@ async function deleteTodo(id) {
   //   return item.id != id;
   // });
   const url = 'http://127.0.0.1:5000/delete'
-  data = {value: id};
+  data = {value: id, type: "planItem"};
 
   const xhr = new XMLHttpRequest();
   sender = JSON.stringify(data)
@@ -166,6 +168,17 @@ async function deleteTodo(id) {
   }
 
 // getFromLocalStorage(); 
+
+// function editItem(id){
+//   const url = 'http://127.0.0.1:5000/edit'
+//   data = {value: id, type: "edit"};
+
+//   const xhr = new XMLHttpRequest();
+//   sender = JSON.stringify(data)
+//   xhr.open('POST', url);
+//   xhr.send(sender);
+// }
+
 
 todoItemsList.addEventListener('click', function(event) {
   // check if the event is on checkbox
@@ -181,6 +194,12 @@ todoItemsList.addEventListener('click', function(event) {
     // window.localStorage.removeItem(event.target.parentElement);
     //document.location.reload(true);
   }
+
+  // if(event.target.classList.contains("edit-button")){
+  //   window.location.reload(true);
+  //   editItem(event.target.parentElement.getAttribute('data-key'));
+  // }
+
 });
 
 let dragged;

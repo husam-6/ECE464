@@ -1,0 +1,116 @@
+#edit-container {
+    background: black; 
+    text-align: center;
+}
+form {
+    display: inline-block; 
+    margin-top: 120px; 
+}
+
+#edit-header {
+    color: #66FcF1; 
+    font-size: 20px; 
+    margin-top: 100px; 
+    font-family: 'Montserrat', sans-serif;
+}
+input{
+    height: 40px;
+    text-align: center;
+    color: black;
+    flex-grow: 1;
+}
+.item{
+    color: white;
+    font-weight: bold; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.checked { 
+    text-decoration: line-through;
+}
+
+.items{
+    text-align: left;
+}
+  .submit-button, .top-button{
+    background: none;
+    border: none;  
+    color: #66FcF1; 
+    cursor: pointer; 
+    transition: transform .2s
+  }
+
+.submit-button {
+  font-size : 16px;
+
+}
+  .submit-button:hover, .top-button:hover {
+  transform: scale(1.4); 
+}
+input{
+    width:fit-content;
+    border:1px solid #66FcF1;
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+  }
+
+
+input:focus, select:focus{
+  border-color: #66FcF1;
+  box-shadow:0 0 8px 0 #66FcF1;
+}
+
+:root {
+  --radius: 3px;
+  --baseFg: dimgray;
+  --baseBg: #232c3a;
+  --accentFg: #66FcF1;
+  --accentBg: #1a2835;
+  --lightblue: lightblue; 
+}
+
+select {
+  height: 38px; 
+  -webkit-appearance: none;
+  appearance: none;
+  color: gray;
+  border: 1px solid var(--accentFg);
+  line-height: 1;
+  outline: 0;
+  padding: 0.65em 2.5em 0.55em 0.75em;
+  border-radius: var(--radius);
+  background-color: var(--baseBg);
+  transition:.3s;
+
+  background-image: linear-gradient(var(--lightblue), var(--lightblue)),
+    linear-gradient(-135deg, transparent 50%, var(--lightblue) 50%),
+    linear-gradient(-225deg, transparent 50%, var(--lightblue) 50%),
+    linear-gradient(var(--lightblue) 42%, var(--accentBg) 42%);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 1px 100%, 20px 22px, 20px 22px, 20px 100%;
+  background-position: right 20px center, right bottom, right bottom, right bottom;   
+}
+
+select:hover {
+  background-image: linear-gradient(var(--baseFg), var(--baseFg)),
+    linear-gradient(-135deg, transparent 50%, var(--accentBg) 50%),
+    linear-gradient(-225deg, transparent 50%, var(--accentBg) 50%),
+    linear-gradient(var(--accentBg) 42%, var(--accentFg) 42%);
+}
+
+select:active {
+  color: var(--accentBg);
+  border-color: var(--accentFg);
+  background-color: lightgray;
+}
+
+.due-date, .date, .announcement, .plan-inp, .class_name {
+  background: #232c3a; 
+  color: gray
+}
+

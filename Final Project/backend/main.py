@@ -42,6 +42,7 @@ def planner():
             tmp = Table.query.filter_by(id=tid).first()
             
         return tid
+
     if request.method == "POST":
         form_name = request.form['submit_btn']
         if form_name == 'p_submit':
@@ -49,9 +50,18 @@ def planner():
             className = request.form['class_name']
             assignment = request.form['assignment']
             classType = request.form['class_type']
+            # print(request.form['pubpriv'])
+            try:
+                view = request.form['pubpriv']
+                if view == "on":
+                    view = False
+            except:
+                view = True
             
+            # print(view)
+            # view = True
             eid = generateID(Entry)
-            entry = Entry(id=eid, user_id=current_user.id, due_date=dueDate, viewType=True)
+            entry = Entry(id=eid, user_id=current_user.id, due_date=dueDate, viewType=view)
             entry.user = current_user
             
             aid = generateID(Assignment)
@@ -84,8 +94,10 @@ def planner():
     return render_template('index.html')
 
 @main.route('/getEntries', methods=["GET"])
+@login_required
 def getEntries():
-    entries = Assignment.query.join(Entry).filter(Entry.complete_date==None).all()
+    entries = Assignment.query.join(Entry).filter(((Entry.complete_date==None) & (Entry.viewType==True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date==None))).all()
+    # entries = Assignment.query.join(Entry).filter((Entry.complete_date==None) | ((Entry.user_id == current_user.id) & (Entry.viewType==True))).all()
     # entries = Assignment.query.filter(Assignment.entry.complete_date==None).all()
     # print(entries)
 
@@ -105,6 +117,7 @@ def getEntries():
     return jsonify(items)
 
 @main.route('/announce', methods=["GET"])
+@login_required
 def announcementEntries():
     entries = Announcement.query.join(Entry).filter(Entry.complete_date==None, Entry.user_id==current_user.id, Entry.viewType==False).all()
 
@@ -125,10 +138,11 @@ def announcementEntries():
 
 
 @main.route('/delete', methods=["POST"])
+@login_required
 def delItem():
     delId = json.loads(request.data)
-    print("UNBELIEVABLY HUGE PEEEEENIS!!!!!!!!!!!!!!!!!!")
-    form_name = request.form["sub-btn"]
+    
+    form_name = delId['type']
     
     if form_name == "announceItem":
         tmp = Announcement.query.filter(Announcement.id == delId['value']).first()
@@ -141,23 +155,50 @@ def delItem():
     return delId
 
 @main.route('/calendar', methods=["GET"])
+@login_required
 def allItems():
-    calItems = Assignment.query.join(Entry).with_entities(Entry.due_date, Assignment.assignment, Entry.complete_date, Assignment.a_type, Assignment.class_name, Assignment.id).all()
+    calItems = Assignment.query.join(Entry).all()
     
+
     items = []
     
     for item in calItems:
         data = {}
-        data["date"] = item[0]
-        data["name"] = item[1]
-        data["completed"] = item[2]
-        data["color"] = item[3]
-        data["class"] = item[4]
-        data["id"] = item[5]
+        data["date"] = item.entry.due_date
+        data["name"] = item.assignment
+        data["completed"] = item.entry.complete_date
+        data["color"] = item.a_type
+        data["class"] = item.class_name
+        data["id"] = item.id
 
         items.append(data)
     
     return jsonify(items)
+
+@main.route('/edit&id=<int:id>', methods=["GET", "POST"])
+@login_required
+def editItem(id):
+    if request.method == "POST":
+        dueDate = datetime.strptime(request.form['due_date'],"%Y-%m-%d")
+        className = request.form['class_name']
+        assignment = request.form['assignment']
+        classType = request.form['class_type']
+        # aid = request.form["id"]
+        aid=id
+
+        item = Assignment.query.filter(Assignment.id == aid).first()
+
+        item.entry.due_date = dueDate
+        item.assignment = assignment
+        item.a_type = classType
+        item.class_name = className
+
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('main.planner'))
+
+    # print(f"{assignment} has due date: {dueDate} with type: {classType}")
+    return render_template('edit.html')
 
 if __name__ == '__main__':
     main.run(debug=True)

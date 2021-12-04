@@ -86,7 +86,9 @@ function renderItems2(items){
 
     li.innerHTML = `
     ${out} &emsp; ${items[i].name.slice(0, 45)}
-    <button class='delete-button' name="sub-btn" value="announceItem"=>-</button>`;
+    <button type="submit" class='delete-button' name="delete_button" value="announceItem">-</button>
+    <a role="button" class='edit-button' name="edit_button" value="planItem"><i class="fas fa-edit"></i></a>`;
+    
     
     announceList.append(li);
   }
@@ -132,7 +134,7 @@ async function deleteTodo2(id) {
   //   return item.id != id;
   // });
   const url = 'http://127.0.0.1:5000/delete'
-  data = {value: id};
+  data = {value: id, type: "announceItem"};
 
   const xhr = new XMLHttpRequest();
   sender = JSON.stringify(data)

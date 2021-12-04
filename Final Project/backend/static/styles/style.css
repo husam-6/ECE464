@@ -269,10 +269,23 @@ ul li {
     color: black; 
  
   }
-
-.delete-button{
+.edit-button{
+    position: absolute; 
     font-family: IBM Plex Sans;
-    float: right;
+    right: 9px; 
+    top: 30%; 
+    background: none; 
+    color: white;  
+    cursor: pointer; 
+    font-size: 14px; 
+    margin-top: -10px; 
+    border: none; 
+}
+.delete-button {
+    font-family: IBM Plex Sans;
+    position: absolute; 
+    right: 7px; 
+    bottom: 12%; 
     background: none; 
     color: white;  
     cursor: pointer; 
@@ -284,7 +297,10 @@ ul li {
   .delete-button:hover{
     color: rgb(255, 0, 0);
   }
-  .delete-button:active{
+.edit-button:hover {
+    color: coral;
+}
+  .delete-button:active, .edit-button:active{
   transform: translateY(2px);
   }
   .submit-button, .top-button{
