@@ -27,10 +27,27 @@ announceList.addEventListener('click', function(event){
   }
 }, false);
 
-form.addEventListener('submit', function(event){
-  event.preventDefault();
-  addAnnounce(announceInput.value, announceDate.value);
-});
+// form.addEventListener('submit', function(event){
+//   event.preventDefault();
+//   addAnnounce(announceInput.value, announceDate.value);
+// });
+getAnnouncements()
+
+function getAnnouncements() {
+  const url = 'http://127.0.0.1:5000/announce'
+  fetch(url)
+  .then(response => response.json())  
+  .then(json => {
+      announceItems = json; 
+      announceItems.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
+      renderItems2(announceItems);
+      // console.log(json);
+  })
+  
+}
+
 
 function addAnnounce(item, dueDate){
   if(item !== ''){
@@ -49,6 +66,7 @@ function addAnnounce(item, dueDate){
 }
 
 function renderItems2(items){
+  
 
   announceList.innerHTML = '';
   for(let i = 0; i<items.length; i++){
@@ -63,9 +81,12 @@ function renderItems2(items){
     }
     li.setAttribute('draggable', true);
     
+    tmp = (items[i].date).split(" ");
+    out = tmp[1] + " " + tmp[2] + " " + tmp[3]
+
     li.innerHTML = `
-    ${items[i].date} &emsp; ${items[i].name.slice(0, 45)}
-    <button class='delete-button'>-</button>`;
+    ${out} &emsp; ${items[i].name.slice(0, 45)}
+    <button class='delete-button' name="sub-btn" value="announceItem"=>-</button>`;
     
     announceList.append(li);
   }
@@ -100,19 +121,31 @@ function toggle2(id) {
   addToLocalStorage2(announceItems);
 };
 
-function deleteTodo2(id) {
-  // filters out the <li> with the id and updates the todos array
-  announceItems = announceItems.filter(function(item) {
-    // use != not !==, because here types are different. One is number and other is string
-    return item.id != id;
-  });
-  //window.localStorage.removeItem(item.id);
-
-  // update the localStorage
-  addToLocalStorage2(announceItems);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-getFromLocalStorage2();
+async function deleteTodo2(id) {
+  // filters out the <li> with the id and updates the todos array
+  // items = items.filter(function(item) {
+    // use != not !==, because here types are different. One is number and other is string
+  //   return item.id != id;
+  // });
+  const url = 'http://127.0.0.1:5000/delete'
+  data = {value: id};
+
+  const xhr = new XMLHttpRequest();
+  sender = JSON.stringify(data)
+  xhr.open('POST', url);
+  xhr.send(sender);
+  
+  await sleep(300);
+
+  window.location.reload()
+  
+  }
+
+// getFromLocalStorage2();
 
 announceList.addEventListener('click', function(event) {
   // check if the event is on checkbox
@@ -124,7 +157,7 @@ announceList.addEventListener('click', function(event) {
   if (event.target.classList.contains('delete-button')) {
     // get id from data-key attribute's value of parent <li> where the delete-button is present
     deleteTodo2(event.target.parentElement.getAttribute('data-key'));
-    window.localStorage.removeItem(event.target.parentElement);
+    // window.localStorage.removeItem(event.target.parentElement);
   }
 });
 
@@ -168,7 +201,7 @@ announceList.addEventListener("drop", ({target}) => {
     }
 
     announceItems = swapItems2(index2, second2);
-    addToLocalStorage2(announceItems);
+    // addToLocalStorage2(announceItems);
   }
 });
 

@@ -30,9 +30,24 @@ todoItemsList.addEventListener('click', function(event){
   }
 }, false);
 
-todoForm.addEventListener('submit', function(event){
-  addItem(todoInput.value, todoDate.value);
-});
+// todoForm.addEventListener('submit', function(event){
+//   addItem(todoInput.value, todoDate.value);
+// });
+
+function getCurrentEntries() {
+  const url = 'http://127.0.0.1:5000/getEntries'
+  fetch(url)
+  .then(response => response.json())  
+  .then(json => {
+      items = json; 
+      items.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
+      renderItems(items);
+      // console.log(json);
+  })
+  
+}
 
 function addItem(item, dueDate){
   let colorValue; 
@@ -65,6 +80,7 @@ function addItem(item, dueDate){
 function renderItems(items){
 
   todoItemsList.innerHTML = '';
+  // console.log(items)
   for(let i = 0; i<items.length; i++){
     var checked = items[i].completed ? 'checked': null;
     const li = document.createElement('li');
@@ -78,10 +94,18 @@ function renderItems(items){
       li.classList.add('checked');
     }
     
+    tmp = (items[i].date).split(" ");
+    out = tmp[1] + " " + tmp[2] + " " + tmp[3] 
+    // items[i].date = new Date(items[i].date);
+    // console.log((items[i].date).split(" "))
+    
     //add span to separate date and name 
+    // li.innerHTML = `
+    // ${items[i].date} &emsp; ${items[i].class}: ${items[i].name}
+    // <button class='delete-button' onclick='window.location.reload()'>-</button>`;   
     li.innerHTML = `
-    ${items[i].date} &emsp; ${items[i].name}
-    <button class='delete-button' onclick='window.location.reload()'>-</button>`;   
+    ${out} &emsp; ${items[i].class}: ${items[i].name}
+    <button class='delete-button' name="sub-btn" value="planItem">-</button>`;
     
     todoItemsList.append(li);
   }
@@ -117,19 +141,31 @@ function toggle1(id) {
   addToLocalStorage(items);
 };
 
-function deleteTodo(id) {
-  // filters out the <li> with the id and updates the todos array
-  items = items.filter(function(item) {
-    // use != not !==, because here types are different. One is number and other is string
-    return item.id != id;
-  });
-  //window.localStorage.removeItem(item.id);
-
-  // update the localStorage
-  addToLocalStorage(items);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-getFromLocalStorage();
+async function deleteTodo(id) {
+  // filters out the <li> with the id and updates the todos array
+  // items = items.filter(function(item) {
+  //   // use != not !==, because here types are different. One is number and other is string
+  //   return item.id != id;
+  // });
+  const url = 'http://127.0.0.1:5000/delete'
+  data = {value: id};
+
+  const xhr = new XMLHttpRequest();
+  sender = JSON.stringify(data)
+  xhr.open('POST', url);
+  xhr.send(sender);
+  
+  await sleep(300);
+
+  window.location.reload()
+  
+  }
+
+// getFromLocalStorage(); 
 
 todoItemsList.addEventListener('click', function(event) {
   // check if the event is on checkbox
@@ -142,7 +178,7 @@ todoItemsList.addEventListener('click', function(event) {
   if (event.target.classList.contains('delete-button')) {
     // get id from data-key attribute's value of parent <li> where the delete-button is present
     deleteTodo(event.target.parentElement.getAttribute('data-key'));
-    window.localStorage.removeItem(event.target.parentElement);
+    // window.localStorage.removeItem(event.target.parentElement);
     //document.location.reload(true);
   }
 });
@@ -169,7 +205,7 @@ todoItemsList.addEventListener("dragover", (event) => {
 });
 
 todoItemsList.addEventListener("drop", ({target}) => {
-  if((target.className == "item Exam" || target.className == "item HW" || target.className == "item Project") && target.id !== id) {
+  if((target.className == "item Exam" || target.className == "item Homework" || target.className == "item Project") && target.id !== id) {
     let test = [...list];
     let second = test.indexOf(target)
     dragged.remove( dragged );
@@ -194,3 +230,5 @@ function swapItems(first, second){
   items.splice(second, 0, tmp);
   return items; 
 }
+
+getCurrentEntries();

@@ -325,7 +325,7 @@ input:focus, select:focus{
 .Project{
   border-color: lightgreen;
 }
-.HW{
+.Homework{
   border-color: #66FcF1;
 }
 
@@ -335,7 +335,7 @@ input:focus, select:focus{
 #Project{
   color: lightgreen;
 }
-#HW{
+#Homework{
   color: #66FcF1;
 }
 
@@ -544,7 +544,7 @@ select:active {
 }
 
 
-.due-date, .date, .announcement, .plan-inp {
+.due-date, .date, .announcement, .plan-inp, .class_name {
   background: #232c3a; 
   color: gray
 }

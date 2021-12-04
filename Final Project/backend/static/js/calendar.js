@@ -74,23 +74,48 @@ function createCalendar(elem, year, month) {
     return date.getDay();
   }
 
-  function getFromLocalStorage3() {
-    var reference = localStorage.getItem('items');
-    // if reference exists
-    if (reference) {
-      // converts back to array and store it in items array
-      items = JSON.parse(reference);
-      return items; 
-    }
+  function getCalItems() {
+    const url = 'http://127.0.0.1:5000/calendar'
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send(null);
+    return JSON.parse(xmlHttp.responseText);
+
+    // fetch(url)
+    // .then(response => response.json())  
+    // .then(json => {
+    //     // renderItems(items);
+    //     calItems = json;
+    //     // tmp = json;
+    //     // console.log(json);
+    // })
+    // console.log(tmp)
+  }
+
+  // function getFromLocalStorage3() {
+  //   var reference = localStorage.getItem('items');
+  //   // if reference exists
+  //   if (reference) {
+  //     // converts back to array and store it in items array
+  //     items = JSON.parse(reference);
+  //     return items; 
+  //   }
+  // }
+
+  function getMonthFromString(mon){
+    return new Date(Date.parse(mon +" 1, 2012")).getMonth()+1
   }
   
   function getAssignment(calItems, date, month) {
     let tmp = '<span class="classItem">';
     for(let i = 0; i<calItems.length; i++){
-      itemDate = calItems[i].date;
-      itemDate = itemDate.split('-');
-      if(itemDate[1] == month && itemDate[2] == date &&itemDate[0]==y){  //check again for priority 
-        let name = calItems[i].name;
+      // itemDate = calItems[i].date;
+      // itemDate = new Date(calItems[i].date).toDateString()
+      itemDate = (calItems[i].date).split(' ');
+      // console.log(itemDate)
+      
+      if(itemDate[1] == date && getMonthFromString(itemDate[2]) == month &&itemDate[3] == y){  //check again for priority 
+        let name = calItems[i].class;
         let prior = calItems[i].color;
         name = name.split(" ");
         if(name[0].length > 7)
@@ -115,7 +140,13 @@ function createCalendar(elem, year, month) {
   let d = new Date();
   let m = d.getMonth();
   let y = d.getFullYear();
-  let calItems = getFromLocalStorage3();
+  // let calItems = getFromLocalStorage3();
+  let tmp;
+  let calItems = getCalItems();
+  console.log(calItems)
+
+  // console.log(calItems)
+  // console.log(calItems)
 
   formInp.addEventListener('submit', function(event){
     Object.reload(forcedReload);

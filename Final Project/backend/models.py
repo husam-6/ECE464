@@ -18,6 +18,7 @@ class Entry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     due_date = db.Column(db.DateTime, nullable=False)
     viewType = db.Column(db.Boolean, nullable=False)
+    complete_date = db.Column(db.DateTime, nullable=True)
 
     #one to many (one user to many entries)
     user = db.relationship("User", backref="Entry", lazy=True)
@@ -39,7 +40,6 @@ class Assignment(db.Model):
     assignment = db.Column(db.String(80), nullable=False)
     class_name = db.Column(db.String(80), nullable=False)
     a_type = db.Column(db.String(20), nullable=False)
-    complete_date = db.Column(db.DateTime, nullable=False)
 
     #one to one relationship (one entry to one assignment)
     entry = db.relationship('Entry', uselist=False, backref="Assignment")
