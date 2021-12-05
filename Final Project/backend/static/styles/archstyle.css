@@ -1,0 +1,178 @@
+#archive-container {
+  padding-top: 40px; 
+  background: black;
+}
+
+#archive-header {
+  text-align: center; 
+  color: cyan; 
+  font-family: 'Montserrat', sans-serif;
+}
+
+.classItem::-webkit-scrollbar {
+  width: 2px; 
+}
+
+.item{
+    color: white;
+    font-weight: bold; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.items{
+    text-align: left;
+}
+
+.announce-items{
+    text-align: left;
+}
+
+.sort-button,.clear-all, .clear-all2{
+  cursor: pointer;
+     
+}
+
+.wrapper-archive {
+  padding-left: 27.5em; 
+}
+ 
+ul li {
+    list-style-type: none;
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 35px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    width: 60%;
+    margin-bottom: 20px; 
+    top: 15px; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: solid; 
+    border-width: 2px; 
+    border-color: #75E6DA; 
+    border-radius: 10px;
+    background: #1a2835;
+  }
+  
+
+  ul li:hover {
+    background: lightblue;
+    color: black; 
+    font-weight: bold; 
+  }
+  
+  ul li.checked {
+    background: #6b6e70;
+    color: #fff;
+    text-decoration: line-through;
+    text-decoration-color:white; 
+    border-color: white; 
+  }
+  
+  ul li.checked::before {
+    content: '';
+    border-color: #fff;
+    border-color:rgb(1, 207, 1);
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 30px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+    color: black; 
+ 
+  }
+.recover-archive{
+    position: absolute; 
+    font-family: IBM Plex Sans;
+    right: 8px; 
+    top: 40px; 
+    background: none; 
+    color: white;  
+    cursor: pointer; 
+    font-size: 6px; 
+    margin-top: -10px; 
+    border: none; 
+}
+.delete-archive {
+    font-family: IBM Plex Sans;
+    position: absolute; 
+    left: 7px; 
+    top: 28px; 
+    background: none; 
+    color: white;  
+    cursor: pointer; 
+    font-size: 30px; 
+    margin-top: -10px; 
+    border: none; 
+}
+
+.delete-archive:hover{
+    color: rgb(255, 0, 0);
+  }
+.recover-archive:hover {
+    color: green;
+}
+.delete-archive:active, .recover-archive:active{
+  transform: translateY(2px);
+  }
+
+
+.Exam {
+  border-color: lightcoral;
+}
+.Project{
+  border-color: lightgreen;
+}
+.Homework{
+  border-color: #66FcF1;
+}
+
+#Exam{
+  color: lightcoral;
+}
+#Project{
+  color: lightgreen;
+}
+#Homework{
+  color: #66FcF1;
+}
+#Completed {
+  color: gray;
+}
+.Completed {
+  text-decoration: line-through;
+}
+
+.archive-return{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 30px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
+
+.archive-return:hover {
+color:#000000;
+background-color:lightblue;
+}
+

@@ -298,7 +298,7 @@ ul li {
     color: rgb(255, 0, 0);
   }
 .edit-button:hover {
-    color: coral;
+    color: #1e7026;
 }
   .delete-button:active, .edit-button:active{
   transform: translateY(2px);
@@ -312,6 +312,7 @@ ul li {
   }
 
 .submit-button {
+  padding-left: 0px; 
   font-size : 16px;
 
 }
@@ -354,6 +355,12 @@ input:focus, select:focus{
 #Homework{
   color: #66FcF1;
 }
+#Completed {
+  color: gray;
+}
+.Completed {
+  text-decoration: line-through;
+}
 
 .month{
   text-align: center;
@@ -377,7 +384,7 @@ i {
 }
 
 select {
-  height: 38px; 
+  height: 39px; 
   -webkit-appearance: none;
   appearance: none;
   color: gray;
@@ -581,7 +588,7 @@ border-radius: 8px;
 width: fit-content; 
 padding-left: 10px; 
 }
-.left:hover, .right:hover, .logout:hover {
+.left:hover, .right:hover, .logout:hover, .archive:hover {
 color:#000000;
 background-color:lightblue;
 }
@@ -620,5 +627,90 @@ border-radius: 8px;
   background: black ; 
   border-radius: 8px; 
 }
+
+.archive{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 95px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
 }
+:root {
+  --form-control-color: lightgreen;
+  --form-control-disabled: #959495;
+}
+.form-control {
+  display: inline-block; 
+  padding-left: 8px;
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+
+.form-control + .form-control {
+  margin-top: 1em;
+}
+
+.form-control--disabled {
+  color: var(--form-control-disabled);
+  cursor: not-allowed;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: var(--form-background);
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: .20em;
+  height: .20em;
+  border: 0.10em solid currentColor;
+  border-radius: 0.10em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.40em;
+  height: 0.40em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: CanvasText;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline:  0.05em solid currentColor;
+  outline-offset: 0.05em;
+}
+
+}
+
 

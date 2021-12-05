@@ -25,12 +25,6 @@ def root():
     # db.session.commit()
     return redirect(url_for('auth.login'))
 
-# @main.route('/planner')
-# @login_required
-# def planner():
-#     return render_template('index.html')
-
-
 @main.route('/planner', methods=["GET", "POST"])
 @login_required
 def planner():
@@ -97,9 +91,6 @@ def planner():
 @login_required
 def getEntries():
     entries = Assignment.query.join(Entry).filter(((Entry.complete_date==None) & (Entry.viewType==True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date==None))).all()
-    # entries = Assignment.query.join(Entry).filter((Entry.complete_date==None) | ((Entry.user_id == current_user.id) & (Entry.viewType==True))).all()
-    # entries = Assignment.query.filter(Assignment.entry.complete_date==None).all()
-    # print(entries)
 
     items = []
     
@@ -148,7 +139,11 @@ def delItem():
         tmp = Announcement.query.filter(Announcement.id == delId['value']).first()
     elif form_name == "planItem":
         tmp = Assignment.query.filter(Assignment.id == delId['value']).first()
-    
+    elif form_name == "archItem":
+        Assignment.query.filter(Assignment.id == delId['value']).delete()
+        db.session.commit()
+        return delId
+
     tmp.entry.complete_date = date.today()
     db.session.commit()
 
@@ -157,7 +152,7 @@ def delItem():
 @main.route('/calendar', methods=["GET"])
 @login_required
 def allItems():
-    calItems = Assignment.query.join(Entry).all()
+    calItems = Assignment.query.join(Entry).filter(((Entry.user_id==current_user.id) & (Entry.viewType==False)) | (Entry.viewType == True)).all()
     
 
     items = []
@@ -166,8 +161,12 @@ def allItems():
         data = {}
         data["date"] = item.entry.due_date
         data["name"] = item.assignment
+        if item.entry.complete_date == None:
+            data["color"] = item.a_type
+        else: 
+            data["color"] = "Completed"
+
         data["completed"] = item.entry.complete_date
-        data["color"] = item.a_type
         data["class"] = item.class_name
         data["id"] = item.id
 
@@ -199,6 +198,29 @@ def editItem(id):
 
     # print(f"{assignment} has due date: {dueDate} with type: {classType}")
     return render_template('edit.html')
+
+
+@main.route('/editAnnounce&id=<int:id>', methods=["GET", "POST"])
+@login_required
+def editAnnounce(id):
+    if request.method == "POST":
+        dueDate = datetime.strptime(request.form['announce-date'],"%Y-%m-%d")
+        announcement = request.form['announcement']
+        # aid = request.form["id"]
+        
+        aid=id
+
+        item = Announcement.query.filter(Announcement.id == aid).first()
+
+        item.entry.due_date = dueDate
+        item.announcement = announcement
+
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('main.planner'))
+
+    # print(f"{assignment} has due date: {dueDate} with type: {classType}")
+    return render_template('editAnnounce.html')
 
 if __name__ == '__main__':
     main.run(debug=True)

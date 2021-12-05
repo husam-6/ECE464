@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
+  </style> 
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/archive.js') }}" defer></script>
+
+  <title>Archive</title>
+
+</head>
+
+<body id="archive-container">
+    <div>
+        <h1 id="archive-header"> Archived Items</h1> 
+    </div> 
+    
+    <div class="wrapper-archive">
+        <ul class="archive_items">
+        </ul>
+    </div>
+    
+    
+    <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="archive-return">Return</a
+        >
+    </div>
+
+</body>
+</html>

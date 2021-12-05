@@ -24,7 +24,6 @@ def login():
         return redirect(url_for('main.planner'))
     return render_template('auth.html', request_method = request_method)
 
-
 @auth.route('/logout')
 @login_required
 def logout():

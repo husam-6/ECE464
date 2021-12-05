@@ -1,0 +1,29 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
+  </style> 
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/editstyle.css') }}">
+  <title>Edit</title>
+
+</head>
+
+<body id="edit-container">
+    <div id="edit-header">
+        <h1> Edit the selected submission </h1> 
+    </div> 
+    <form class="announce-form" method="POST">
+      <input type="date" class="date" size="20" name="announce-date" required>
+      <input type="text" class="announcement" placeholder="Announcement" size="20" name="announcement" required>
+      <button type="submit" class="submit-button" name="submit_btn" value="a_submit"><i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </form>
+</body>
+</html>
