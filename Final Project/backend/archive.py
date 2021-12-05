@@ -30,7 +30,8 @@ def getArchive():
             classType = request.form['class_type']
             archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate, Assignment.class_name == className, Assignment.a_type == classType).all()
         except: 
-            archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate).all()
+            print("TEST")
+            archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate, Assignment.class_name == className).all()
 
         retJSON = []
 
@@ -44,11 +45,12 @@ def getArchive():
             data["id"] = item.id
 
             retJSON.append(data)
-
-        # return render_template("arch.html", data=jsonify(retJSON))
-        return jsonify(retJSON)
-
-    elif request.method == "GET":
+        
+        # tmp = jsonify(retJSON)
+        tmp = retJSON
+        # print(tmp)
+        return render_template("filtered.html", tmp=tmp)
+    if request.method == "GET":
         archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).all()
 
         jsonArchive = []

@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
+  </style> 
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/archive.js') }}" defer></script> -->
+
+  <title>Archive Filtered</title>
+
+</head>
+
+<body id="archive-container">
+    <div>
+        <h1 id="archive-header"> Archived Items (Filtered) </h1> 
+    </div> 
+    <div id="filter-container">
+        <h1 id="filter-by">
+            Filter By...
+        </h1>
+            <form class="form" onsubmit="window.location.reload()" action="/getArch" method="POST">
+                <input type="date" class="start-date" size="20" name="start-date" required>
+                <input type="date" class="end-date" size="20" name="end-date" required>
+                <input type="text" class="class_name" name="class_name" placeholder="Class" size="20" required>
+                <select class="priority" name="class_type"> 
+                    <option value="none" selected disabled hidden> Select Type </option>
+                    <option value="Homework">Homework</option>
+                    <option value="Exam">Exam</option>
+                    <option value="Project">Project</option>
+                </select>
+                <button type="submit" id="submit-button" class="submit-button" onclick="window.location.reload()" name="submit_btn" value="p_submit"><i class="fa fa-binoculars fa-spin" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="wrapper-archive">
+        <ul class="archive_items">
+        </ul>
+    </div>
+    <!-- {{tmp}} -->
+    <script type="text/javascript">
+        const todoItemsList = document.querySelector('.archive_items');
+        // console.log({{data}});
+        // alert({{ tmp }})
+
+        let filtered = '{{ tmp | tojson | safe }}';
+
+        filtered = JSON.parse(filtered)
+
+        todoItemsList.innerHTML = '';
+
+        // console.log(filtered)
+        // console.log(filtered[1])
+
+        for(let i = 0; i<filtered.length; i++){
+            const li = document.createElement('li');
+            // console.log(i)
+            
+            li.setAttribute('class', 'item' + " " + filtered[i].color);
+            li.setAttribute('id', filtered[i].id);
+            li.setAttribute('data-key', filtered[i].id);
+            li.setAttribute('draggable', true);
+            if(filtered[i].completed === true){
+                li.classList.add('checked');
+        }
+        
+        tmp = (filtered[i].completed).split(" ");
+        out = tmp[1] + " " + tmp[2] + " " + tmp[3] 
+        
+        li.innerHTML = `
+        ${out} &emsp; ${filtered[i].class}: ${filtered[i].name}
+        
+        <button type="submit" class='delete-archive' >-</button>
+        <a href="http://127.0.0.1:5000/arch&id=${filtered[i].id}" role="button" class='recover-archive' name="restore_button" value="planItem"><i class='fas fa-redo-alt fa-spin fa-3x'></a>`;
+        todoItemsList.append(li);
+        // <button type="submit" class='recover-archive'><i class='fas fa-redo-alt fa-spin fa-3x'></i>
+        }
+
+        // window.location.reload();
+
+
+
+
+    </script>
+
+    
+    
+    <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="archive-return">Return</a
+        >
+    </div>
+
+    <a href="#archive-header">
+        <button id="myBtn" class="top-button" onclick="topFunction()"><i class="fas fa-angle-up"></i></button>
+    </a>
+</body>
+</html>
