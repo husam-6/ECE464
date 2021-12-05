@@ -21,22 +21,50 @@ def archive():
 @arch.route('/getArch', methods = ['GET', 'POST'])
 @login_required
 def getArchive():
-    archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).all()
+    if request.method == "POST":
+        startDate = datetime.strptime(request.form['start-date'],"%Y-%m-%d")
+        endDate = request.form['end-date']
+        className = request.form['class_name']
+        
+        try:
+            classType = request.form['class_type']
+            archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate, Assignment.class_name == className, Assignment.a_type == classType).all()
+        except: 
+            archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate).all()
 
-    jsonArchive = []
-    
-    for item in archived:
-        data = {}
-        data["date"] = item.entry.due_date
-        data["name"] = item.assignment
-        data["completed"] = item.entry.complete_date
-        data["color"] = item.a_type
-        data["class"] = item.class_name
-        data["id"] = item.id
+        retJSON = []
 
-        jsonArchive.append(data)
-    
-    return jsonify(jsonArchive)
+        for item in archived:
+            data = {}
+            data["date"] = item.entry.due_date
+            data["name"] = item.assignment
+            data["completed"] = item.entry.complete_date
+            data["color"] = item.a_type
+            data["class"] = item.class_name
+            data["id"] = item.id
+
+            retJSON.append(data)
+
+        # return render_template("arch.html", data=jsonify(retJSON))
+        return jsonify(retJSON)
+
+    elif request.method == "GET":
+        archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).all()
+
+        jsonArchive = []
+        
+        for item in archived:
+            data = {}
+            data["date"] = item.entry.due_date
+            data["name"] = item.assignment
+            data["completed"] = item.entry.complete_date
+            data["color"] = item.a_type
+            data["class"] = item.class_name
+            data["id"] = item.id
+
+            jsonArchive.append(data)
+        
+        return jsonify(jsonArchive)
 
 @arch.route('/arch&id=<int:id>', methods=["GET"])
 @login_required
@@ -53,30 +81,3 @@ def recover(id):
         return redirect(url_for('arch.archive'))
     
     return render_template('arch.html')
-
-
-    # print(f"{assignment} has due date: {dueDate} with type: {classType}")
-    # return render_template('edit.html')
-    # request_method = request.method
-    # if request.method == 'POST': 
-    #     username = request.form['username']
-    #     password = request.form['password']
-
-    #     user = User.query.filter_by(username=username).first()
-
-    #     if not user or not check_password_hash(user.password, password): 
-    #         return redirect(url_for('auth.login'))
-
-    #     login_user(user, remember=False)
-    #     return redirect(url_for('main.planner'))
-    # return render_template('auth.html', request_method = request_method)
-
-
-
-
-
-
-
-    
-
-

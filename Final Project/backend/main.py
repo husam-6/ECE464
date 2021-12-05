@@ -1,3 +1,4 @@
+from re import T
 from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -136,11 +137,16 @@ def delItem():
     form_name = delId['type']
     
     if form_name == "announceItem":
-        tmp = Announcement.query.filter(Announcement.id == delId['value']).first()
+        tmp = Announcement.query.filter(Announcement.id == delId['value']).delete()
+        db.session.commit()
+        return delId
     elif form_name == "planItem":
         tmp = Assignment.query.filter(Assignment.id == delId['value']).first()
     elif form_name == "archItem":
+        tmp = Assignment.query.filter(Assignment.id == delId['value']).first()
+        Entry.query.filter(Entry.id == tmp.entry_id).delete()
         Assignment.query.filter(Assignment.id == delId['value']).delete()
+
         db.session.commit()
         return delId
 

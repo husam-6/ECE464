@@ -685,7 +685,6 @@ input[type="checkbox"] {
   border: 0.10em solid currentColor;
   border-radius: 0.10em;
   transform: translateY(-0.075em);
-
   display: grid;
   place-content: center;
 }

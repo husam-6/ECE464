@@ -52,7 +52,7 @@ function renderItems2(items){
     out = tmp[1] + " " + tmp[2] + " " + tmp[3]
 
     li.innerHTML = `
-    ${out} &emsp; ${items[i].name.slice(0, 45)}
+    ${out} &emsp; ${items[i].name}
     <button type="submit" class='delete-button' name="delete_button" value="announceItem">-</button>
     <a href="http://127.0.0.1:5000/editAnnounce&id=${items[i].id}" role="button" class='edit-button' name="edit_button" value="planItem"><i class="fas fa-edit"></i></a>`;
     
