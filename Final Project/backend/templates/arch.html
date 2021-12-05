@@ -1,20 +1,11 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-  <style>
-   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
-  </style> 
+{% extends "layout.html" %}
+{% block title %}Archive{% endblock %}
+{% block head %}
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
   <script type="text/javascript" src="{{ url_for('static', filename='js/archive.js') }}" defer></script>
+{% endblock %}
 
-  <title>Archive</title>
-
-</head>
+{% block content %}
 
 <body id="archive-container">
     <div>
@@ -22,12 +13,12 @@
     </div> 
     <div id="filter-container">
         <h1 id="filter-by">
-            Filter By...
+            Filter by...
         </h1>
-            <form class="form" action="/getArch" method="POST">
+            <form class="form" action="/getArch" method="post">
                 <input type="date" class="start-date" size="20" name="start-date" required>
                 <input type="date" class="end-date" size="20" name="end-date" required>
-                <input type="text" class="class_name" name="class_name" placeholder="Class" size="20" required>
+                <input type="text" class="class_name" name="class_name" placeholder="class" size="20" required>
                 <select class="priority" name="class_type"> 
                     <option value="none" selected disabled hidden> Select Type </option>
                     <option value="Homework">Homework</option>
@@ -54,7 +45,8 @@
     </div>
 
     <a href="#archive-header">
-        <button id="myBtn" class="top-button" onclick="topFunction()"><i class="fas fa-angle-up"></i></button>
+        <button id="myBtn" class="top-button" onclick="topfunction()"><i class="fas fa-angle-up"></i></button>
     </a>
 </body>
-</html>
+
+{% endblock %}

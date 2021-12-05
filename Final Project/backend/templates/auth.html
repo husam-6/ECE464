@@ -1,16 +1,12 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}Authentication{% endblock %}
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Play&display=swap');
-  </style> 
+{% block head %}
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/authstyle.css') }}">
-  <title>Authentication</title>
+{% endblock %}
 
-</head>
+
+{% block content %}
 
 <body id="container">
   <form action="/login" method="POST">
@@ -30,4 +26,4 @@
   
 </form> 
 </body>
-</html>
+{% endblock %}

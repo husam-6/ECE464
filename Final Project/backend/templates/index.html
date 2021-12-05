@@ -1,26 +1,13 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "layout.html" %}
+{% block title %}Schedule Planner{% endblock %}
 
-<head>
-  <style>
-   @import url('https://fonts.googleapis.com/css2?family=Klee+One&family=Montserrat&family=Source+Sans+Pro:wght@300&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Mono:wght@100&family=Roboto+Mono&family=Source+Code+Pro:wght@300&display=swap');
-  </style> 
-  <meta charset="UTF-8"/>
-  <meta name="viewport"
-  content="width-device-width, initial-scale=1.0"/>
-  <title>Schedule Planner</title>
-  <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/animation.css') }}"> -->
+{% block head %}
+  <script type="text/javascript" src="{{ url_for('static', filename='js/firstRun.js') }}" defer></script>
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style-mobile.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script> -->
-  <!-- <script type="text/javascript" src="templates/js/firstRun.js" defer></script> -->
-  <script type="text/javascript" src="{{ url_for('static', filename='js/firstRun.js') }}" defer></script>
-  
+{% endblock %}
 
-</head>
-
+{% block content %}
 <body id="container">
   <div id="title"> 
     <h1>Schedule Planner</h1>
@@ -32,11 +19,20 @@
             class="logout fade">Log Out</a
           >
   </div>
+  
   <div>
     <a
             href="{{ url_for('arch.archive') }}"
             role="button"
             class="archive fade">Archive</a
+          >
+  </div>
+
+  <div>
+    <a
+            href="{{ url_for('grade.showGrades') }}"
+            role="button"
+            class="grade fade">Grades</a
           >
   </div>
 
@@ -121,4 +117,6 @@
     <button class="sort-button"><span class="sort-button-span">Sort by Date<i class="fa fa-sort-amount-asc" aria-hidden="true"></i></span> </button>
     <button class="clear-all" onclick="window.location.reload()"><span class="clear-button-span">Clear All<i class="fa fa-bomb" aria-hidden="true"></i></span> </button>
   </div>
-</html>
+
+{% endblock %}
+

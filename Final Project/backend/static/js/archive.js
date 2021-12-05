@@ -20,8 +20,8 @@ function getArchiveItems() {
   }
 
 //   console.log(archivedItems)
-  
-  //Function to display archived items 
+
+//Function to display archived items 
 function displayArch(archivedItems){  
     todoItemsList.innerHTML = '';
     // console.log(items)
@@ -49,7 +49,7 @@ function displayArch(archivedItems){
       // <button type="submit" class='recover-archive'><i class='fas fa-redo-alt fa-spin fa-3x'></i>
     }
   }
-  
+
 //Function 'deletes' item from the list (still in the database/archive)
 async function deleteArch(id) {
     const url = 'http://127.0.0.1:5000/delete'

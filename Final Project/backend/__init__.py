@@ -31,6 +31,9 @@ def create_app():
     from .archive import arch as arch_blueprint
     app.register_blueprint(arch_blueprint)
 
+    from .grade import grade as grade_blueprint
+    app.register_blueprint(grade_blueprint)
+
     # from .testSend import testSend as send_blueprint
     # app.register_blueprint(send_blueprint)
 

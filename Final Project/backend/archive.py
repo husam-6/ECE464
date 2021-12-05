@@ -30,7 +30,7 @@ def getArchive():
             classType = request.form['class_type']
             archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate, Assignment.class_name == className, Assignment.a_type == classType).all()
         except: 
-            print("TEST")
+            # print("TEST")
             archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).filter(Entry.complete_date<endDate, Entry.complete_date>startDate, Assignment.class_name == className).all()
 
         retJSON = []

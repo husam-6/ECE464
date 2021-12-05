@@ -588,7 +588,7 @@ border-radius: 8px;
 width: fit-content; 
 padding-left: 10px; 
 }
-.left:hover, .right:hover, .logout:hover, .archive:hover {
+.left:hover, .right:hover, .logout:hover, .archive:hover, .grade:hover {
 color:#000000;
 background-color:lightblue;
 }
@@ -628,6 +628,26 @@ border-radius: 8px;
   border-radius: 8px; 
 }
 
+.grade{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 180px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
 .archive{
   font-family: 'Roboto Mono', monospace;
   line-height: 14px; 
