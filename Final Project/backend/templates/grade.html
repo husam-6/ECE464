@@ -3,6 +3,7 @@
 
 {% block head %}
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/gradestyle.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/grade.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -12,19 +13,42 @@
         <h1 id="grade-header"> Current Semester Grades </h1> 
     </div> 
     
+    <h2 id="grade-header">Ungraded Items</h2>
     <div class="wrapper-grade">
         <ul class="grade_items">
         </ul>
     </div>
     
+    <h2 id="graded-header">Graded Items</h2>
+    <div class="wrapper-grade2">
+        <ul class="graded_items">
+        </ul>
+    </div>
     
     <div>
         <a
                 href="{{ url_for('main.planner') }}"
                 role="button"
-                class="grade-return">return</a
+                class="grade-return">Planner</a
         >
     </div>
+  <div>
+    <a
+            href="{{ url_for('arch.archive') }}"
+            role="button"
+            class="archive">Archive</a
+          >
+  </div>
+
+  <div>
+    <a
+            href="{{ url_for('grade.gpa') }}"
+            role="button"
+            class="gpa">GPA</a
+          >
+  </div>
+
+  
 
 </body>
 {% endblock %} 

@@ -32,10 +32,6 @@ function displayArch(archivedItems){
       li.setAttribute('class', 'item' + " " + archivedItems[i].color);
       li.setAttribute('id', archivedItems[i].id);
       li.setAttribute('data-key', archivedItems[i].id);
-      li.setAttribute('draggable', true);
-      if(archivedItems[i].completed === true){
-        li.classList.add('checked');
-      }
       
       tmp = (archivedItems[i].completed).split(" ");
       out = tmp[1] + " " + tmp[2] + " " + tmp[3] 
@@ -50,20 +46,20 @@ function displayArch(archivedItems){
     }
   }
 
-//Function 'deletes' item from the list (still in the database/archive)
-async function deleteArch(id) {
-    const url = 'http://127.0.0.1:5000/delete'
-    data = {value: id, type: "archItem"};
+// //Function 'deletes' item from the list (still in the database/archive)
+// async function deleteArch(id) {
+//     const url = 'http://127.0.0.1:5000/delete'
+//     data = {value: id, type: "archItem"};
   
-    const xhr = new XMLHttpRequest();
-    sender = JSON.stringify(data)
-    xhr.open('POST', url);
-    xhr.send(sender);
+//     const xhr = new XMLHttpRequest();
+//     sender = JSON.stringify(data)
+//     xhr.open('POST', url);
+//     xhr.send(sender);
     
-    await sleep(300);
+//     await sleep(300);
   
-    window.location.reload()
-}
+//     window.location.reload()
+// }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Edit{% endblock %}
+
+{% block head %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/notifstyle.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<body id="notif-container">
+    <div id="notif-header">
+        <h1>Set A Notification</h1> 
+    </div> 
+  <form id="notifs-form" class="form" action="/notifs" method="POST">
+    <div id="form-container">
+        <div id="email">
+            <input type="text" class="email" name="email" placeholder="Email" size="20" required>
+        </div>
+        <div id="class">
+            <input type="text" class="class" name="class" placeholder="Class" size="20" required>
+        </div>
+        <div id="remind-date">
+            <input type="date" class="reminder" size="20" name="reminder" required>
+        </div>
+        <div id="message">
+            <h1 id="message-header"> Enter a reminder: </h1> 
+            <textarea form="notifs-form" class="message" name="message" required spellcheck="true" autocomplete="true">
+            </textarea> 
+        </div>
+        <div id="button"> 
+            <button type="submit" id="submit-button" class="submit-button" name="submit_btn" value="p_submit"><i class="fas fa-paper-plane"></i></button>
+        </div>
+</div>
+
+</form>
+
+ <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="notifs-return">Planner</a
+        >
+    </div>
+
+  <div>
+    <a
+            href="{{ url_for('arch.archive') }}"
+            role="button"
+            class="archive fade">Archive</a
+          >
+  </div>
+
+  <div>
+    <a
+            href="{{ url_for('grade.showGrades') }}"
+            role="button"
+            class="grade fade">Grades</a
+          >
+  </div>
+
+  <div>
+</body>
+{% endblock %}

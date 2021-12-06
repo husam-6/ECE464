@@ -1,0 +1,153 @@
+body {
+    /* background: black; */
+    /* background-image: url(https://cdn.wallpapersafari.com/15/95/PsMTxF.gif); */
+    background-image: url(https://www.teahub.io/photos/full/288-2886307_sunset-gif.gif);
+
+    background-size: 1920px 1080px;
+}
+
+#notif-header{
+    margin-top: 100px; 
+    font-family: 'Montserrat', sans-serif;
+    color : #66fcf1;
+    text-align: center; 
+}
+
+input{
+    height: 40px;
+    text-align: center;
+    color: black;
+    flex-grow: 1;
+}
+
+.submit-button{
+    background: none;
+    border: none;  
+    color: #66FcF1; 
+    cursor: pointer; 
+    transition: transform .2s
+  }
+
+.submit-button {
+  font-size : 25px;
+
+}
+  .submit-button:hover, .top-button:hover {
+  transform: scale(1.2); 
+}
+
+input, textarea{
+    width:fit-content;
+    border:1px solid #66FcF1;
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+  }
+
+input:focus, textarea:focus{
+  border-color: #66FcF1;
+  box-shadow:0 0 8px 0 #66FcF1;
+}
+
+.reminder, .message, .email, .class{
+  background: #232c3a; 
+  color: gray
+}
+.email, .class{
+  width: 160px; 
+}
+
+#form-container {
+  text-align: center; 
+}
+
+.message {
+  height: 150px; 
+  width: 300px;
+  resize: none; 
+  scroll-behavior: unset;
+}
+
+#message-header {
+  color: #66fcf1;
+  font-size: 20px; 
+  font-family: 'Montserrat', sans-serif;
+}
+
+.archive{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 95px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
+.archive:hover{
+color:#000000;
+background-color:lightblue;
+}
+
+.grade{
+  font-family: 'Roboto Mono', monospace; 
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  top: 10px;
+  right: 180px;
+  float: right;
+  cursor: pointer;
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ;
+  border-radius: 8px;
+  } 
+  .grade:hover{
+  color:#000000;
+  background-color:lightblue; 
+  }
+
+.notifs-return{
+  font-family: 'Roboto Mono', monospace; 
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  top: 10px;
+  right: 10px;
+  float: right;
+  cursor: pointer;
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ;
+  border-radius: 8px;
+  } 
+  .notifs-return:hover {
+  color:#000000;
+  background-color:lightblue; 
+  }

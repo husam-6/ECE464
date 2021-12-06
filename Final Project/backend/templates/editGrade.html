@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Edit Grade{% endblock %}
+
+{% block head %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/editstyle.css') }}">
+{% endblock %}
+
+{% block content %}
+<body id="edit-container">
+    <div id="edit-header">
+        <h1> Edit the selected submission </h1> 
+    </div> 
+    <form class="announce-form" method="POST">
+      <input type="text" size="20" name="weight" placeholder="Weight" required>
+      <input type="text" placeholder="Grade" size="20" name="grade" required>
+      <button type="submit" class="submit-button" name="submit_btn" value="a_submit"><i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </form>
+</body>
+{% endblock %}

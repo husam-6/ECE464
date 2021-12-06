@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Grades{% endblock %}
+
+{% block head %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/gradestyle.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/gpa.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<body id="grade-container">
+    <div>
+        <h1 id="grade-header"> Class GPA </h1> 
+    </div> 
+    
+    <div class="wrapper-gpa">
+        <ul class="gpa_items">
+        </ul>
+    </div>
+    
+    <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="grade-return">Planner</a
+        >
+    </div>
+  <div>
+    <a
+            href="{{ url_for('grade.showGrades') }}"
+            role="button"
+            class="archive">Grades</a
+          >
+  </div>
+  
+
+</body>
+{% endblock %} 

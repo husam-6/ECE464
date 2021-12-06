@@ -10,6 +10,13 @@
   padding-bottom: 15px; 
 }
 
+#graded-header {
+  display: block; 
+  text-align: center; 
+  color: cyan; 
+  font-family: 'Roboto Mono', monospace; 
+  margin-top: 50px; 
+}
 .classItem::-webkit-scrollbar {
   width: 2px; 
 }
@@ -34,8 +41,12 @@
      
 }
 
-.wrapper-grade{
+.wrapper-grade, .wrapper-grade2, .wrapper-gpa{
   padding-left: 27.5em; 
+}
+
+#left_align{
+  float: right;
 }
  
 ul li {
@@ -59,6 +70,7 @@ ul li {
     border-color: #75E6DA; 
     border-radius: 10px;
     background: #1a2835;
+    color: white
   }
   
 
@@ -103,14 +115,25 @@ ul li {
     margin-top: -10px; 
     border: none; 
 }
+.edit-grade{
+    position: absolute; 
+    right: 7px; 
+    font-size: 18px; 
+    top: 47%; 
+    background: none; 
+    color: white;  
+    cursor: pointer; 
+    margin-top: -10px; 
+    border: none; 
+}
 
 .delete-archive:hover{
     color: rgb(255, 0, 0);
   }
-.recover-archive:hover {
-    color: green;
+.edit-grade:hover {
+    color: coral;
 }
-.delete-archive:active, .recover-archive:active{
+.delete-archive:active, .edit-grade:active{
   transform: translateY(2px);
   }
 
@@ -288,4 +311,78 @@ input{
   /* z-index: 99; Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
+}
+
+ .grade, .weight{
+  background: #232c3a; 
+  color: gray;
+  display: inline-block; 
+  width: 100px; 
+  height: 30px; 
+  text-align: center; 
+}
+.weight {
+  margin-left: 35%; 
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#gradeDisplay {
+  width: auto; 
+  padding-right: 30%; 
+  padding-left: 37%; 
+}
+
+.archive{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 95px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
+.archive:hover{
+color:#000000;
+background-color:lightblue;
+}
+
+.gpa{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 180px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
+.gpa:hover{
+color:#000000;
+background-color:lightblue;
 }

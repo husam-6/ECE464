@@ -12,3 +12,11 @@
 #         print("HUGE PENIS")
 #         return redirect(url_for('main.planner'))
 
+# import datetime
+# tod = datetime.datetime.now()
+# d = datetime.timedelta(days=7)
+# a = tod-
+
+# from datetime import date
+
+# print(date.today())

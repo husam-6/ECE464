@@ -3,18 +3,24 @@ from flask import Flask, render_template, request, redirect, url_for, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from backend.models import User, Assignment, Entry, Announcement
+from backend.models import User, Assignment, Entry, Announcement, Grade, Notification, Snooze
 from flask_login import login_required, current_user 
 from flask import jsonify
-from datetime import datetime
-from datetime import date
-from random import randint
+from datetime import datetime, date, timedelta
 import json
+from .generate import generateID
+
 
 main = Blueprint("main", __name__)
 
 @main.route('/')
 def root(): 
+    # Notification.__table__.create(db.session.bind)
+    # Snooze.__table__.create(db.session.bind)
+    # Notification.__table__.drop(db.engine)
+    # Snooze.__table__.drop(db.engine)
+    # db.session.query(Grade).delete()
+    # db.session.commit()
     # ali = User(id = 1, username="aghuman", password=generate_password_hash("123suckad", method="sha256"), email="ali.ghuman@cooper.edu", gpa=3.84)
     # husam = User(id=2, username="halmanakly", password=generate_password_hash("yaryar123", method="sha256"), email="husam.almanakly@cooper.edu", gpa=3.92)
     # layth = User(id=3, username="lyassin", password=generate_password_hash("smallcock69", method="sha256"), email="layth.yassin@cooper.edu", gpa=3.9)
@@ -29,15 +35,6 @@ def root():
 @main.route('/planner', methods=["GET", "POST"])
 @login_required
 def planner():
-    def generateID(Table):
-        tid = randint(1, 2**32)
-        tmp = Table.query.filter_by(id=tid).first()
-        while tmp:
-            tid = randint(1, 2**32)
-            tmp = Table.query.filter_by(id=tid).first()
-            
-        return tid
-
     if request.method == "POST":
         form_name = request.form['submit_btn']
         if form_name == 'p_submit':
@@ -63,6 +60,12 @@ def planner():
             item = Assignment(id=aid, entry_id=entry.id, assignment=assignment, class_name=className, a_type=classType, entry=entry)
             item.entry = entry
             
+            d = timedelta(days=3)
+            notifDate = dueDate-d
+            
+            nid = generateID(Notification)
+            notif = Notification(id=nid, assignment_id=aid, notif_date= notifDate)
+            item.notif.append(notif)
 
             db.session.add(item)
             db.session.commit()
@@ -143,9 +146,11 @@ def delItem():
     elif form_name == "planItem":
         tmp = Assignment.query.filter(Assignment.id == delId['value']).first()
     elif form_name == "archItem":
+        print(delId["value"])
         tmp = Assignment.query.filter(Assignment.id == delId['value']).first()
         Entry.query.filter(Entry.id == tmp.entry_id).delete()
         Assignment.query.filter(Assignment.id == delId['value']).delete()
+        Grade.query.filter(Grade.assignment_id == delId['value']).delete()
 
         db.session.commit()
         return delId
@@ -227,6 +232,9 @@ def editAnnounce(id):
 
     # print(f"{assignment} has due date: {dueDate} with type: {classType}")
     return render_template('editAnnounce.html')
+
+
+
 
 if __name__ == '__main__':
     main.run(debug=True)
