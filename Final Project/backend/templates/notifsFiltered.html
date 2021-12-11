@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+{% block title %}Notifications Filtered{% endblock %}
+
+{% block head %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<body id="archive-container">
+    <div>
+        <h1 id="archive-header"> Notifications (Filtered) </h1> 
+    </div> 
+    <div id="filter-container">
+        <h1 id="filter-by">
+            Filter By...
+        </h1>
+            <form class="form" onsubmit="window.location.reload()" action="/getNotifs" method="POST">
+                <input type="date" class="start-date" size="20" name="start-date" required>
+                <input type="date" class="end-date" size="20" name="end-date" required>
+                <button type="submit" id="submit-button" class="submit-button" onclick="window.location.reload()" name="submit_btn" value="p_submit"><i class="fa fa-binoculars fa-spin" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <h2 id="filter-by">
+        Notifications
+    </h2>
+
+    <div class="wrapper-notifs">
+        <ul class="notif_items">
+        </ul>
+    </div>
+    
+    <h2 id="filter-by">
+        Snoozes
+    </h2>
+    
+    <div class="wrapper-snoozes">
+        <ul class="snooze_items">
+        </ul>
+    </div>
+    
+    <script type="text/javascript">
+
+        // console.log({{data}});
+        // alert({{ tmp }})
+
+        // console.log("TEST")
+        let filteredNotif = `{{ notifJSON | tojson | safe }}`;
+        let filteredSnooze = `{{ snoozeJSON | tojson | safe }}`;
+        
+        console.log(filteredNotif);
+        console.log(filteredSnooze);
+
+        let notifs = JSON.parse(filteredNotif);
+        let snooze = JSON.parse(filteredSnooze);
+        
+        notifs.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date);
+        }); 
+        snooze.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date);
+        }); 
+        
+        // console.log(notifs);
+        // console.log(snooze);
+
+        const notifsList = document.querySelector('.notif_items');
+        const snoozeList = document.querySelector('.snooze_items');
+        
+        dispNotif(notifs);
+        displaySnooze(snooze);
+
+        // Function to display archived items 
+        function dispNotif(notifs){  
+            notifsList.innerHTML = '';
+            // console.log(items)
+            for(let i = 0; i<notifs.length; i++){
+            const li = document.createElement('li');
+            
+            
+            li.setAttribute('class', 'item' + " " + notifs[i].color);
+            li.setAttribute('id', notifs[i].id);
+            li.setAttribute('data-key', notifs[i].id);
+            
+            tmp = (notifs[i].date).split(" ");
+            out = tmp[1] + " " + tmp[2] + " " + tmp[3] 
+            
+            li.innerHTML = `
+            ${out} &emsp; ${notifs[i].class}: ${notifs[i].name}
+            
+            <button type="submit" class='delete-notifs' >-</button>`;
+            notifsList.append(li);
+            // <button type="submit" class='recover-archive'><i class='fas fa-redo-alt fa-spin fa-3x'></i>
+            }
+        }
+        
+        function displaySnooze(snooze){  
+            snoozeList.innerHTML = '';
+            // console.log(items)
+            for(let i = 0; i<snooze.length; i++){
+                const li = document.createElement('li');
+                
+                li.setAttribute('class', 'item');
+                li.setAttribute('id', snooze[i].id);
+                li.setAttribute('data-key', snooze[i].id);
+                
+                console.log(snooze[i])
+                tmp = (snooze[i].date).split(" ");
+                out = tmp[1] + " " + tmp[2] + " " + tmp[3] 
+                
+                li.innerHTML = `
+                ${out} &emsp; ${snooze[i].class}: ${snooze[i].desc}
+                
+                <button type="submit" class='delete-snooze' >-</button>`;
+                snoozeList.append(li);
+                // <button type="submit" class='recover-archive'><i class='fas fa-redo-alt fa-spin fa-3x'></i>
+                }
+            }
+            </script>
+
+
+    
+    <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="archive-return">Return</a
+        >
+    </div>
+
+    <a href="#archive-header">
+        <button id="myBtn" class="top-button" onclick="topFunction()"><i class="fas fa-angle-up"></i></button>
+    </a>
+</body>
+{% endblock %}

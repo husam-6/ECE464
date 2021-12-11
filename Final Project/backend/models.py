@@ -81,12 +81,6 @@ from sqlalchemy.orm import backref
 
 
 
-
-
-
-
-
-
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True) # uid

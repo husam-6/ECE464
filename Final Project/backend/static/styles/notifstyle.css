@@ -77,6 +77,31 @@ input:focus, textarea:focus{
   font-family: 'Montserrat', sans-serif;
 }
 
+.notif{
+  font-family: 'Roboto Mono', monospace;
+  line-height: 14px; 
+  position: absolute; 
+  text-decoration: none;
+  text-transform: uppercase; 
+  font-size: 16px; 
+  top: 10px; 
+  right: 255px; 
+  float: right; 
+  cursor: pointer; 
+  padding:0.25em 0.2em;
+  border:2px solid lightblue;
+  text-decoration:none;
+  color:#c5c6c7;
+  text-align:center;
+  transition: all 0.2s;
+  background: black ; 
+  border-radius: 8px; 
+}
+.notif:hover{
+  color:#000000;
+  background-color:lightblue;
+  }
+
 .archive{
   font-family: 'Roboto Mono', monospace;
   line-height: 14px; 

@@ -1,5 +1,6 @@
 from re import T
 from flask import Flask, render_template, request, redirect, url_for, Blueprint
+from flask.globals import current_app
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -9,7 +10,8 @@ from flask import jsonify
 from datetime import datetime, date, timedelta
 import json
 from .generate import generateID
-
+from flask_mail import Mail, Message
+from apscheduler.schedulers.background import BackgroundScheduler
 
 main = Blueprint("main", __name__)
 
@@ -152,6 +154,14 @@ def delItem():
         Assignment.query.filter(Assignment.id == delId['value']).delete()
         Grade.query.filter(Grade.assignment_id == delId['value']).delete()
 
+        db.session.commit()
+        return delId
+    elif form_name == "notif":
+        tmp = Notification.query.filter(Notification.id == delId['value']).first()
+        db.session.commit()
+        return delId
+    elif form_name == "snooze":
+        Snooze.query.filter(Snooze.id == delId['value']).delete()
         db.session.commit()
         return delId
 

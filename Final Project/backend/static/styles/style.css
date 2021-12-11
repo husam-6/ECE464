@@ -588,7 +588,7 @@ border-radius: 8px;
 width: fit-content; 
 padding-left: 10px; 
 }
-.left:hover, .right:hover, .logout:hover, .archive:hover, .grade:hover {
+.left:hover, .right:hover, .logout:hover, .archive:hover, .grade:hover, .notifications:hover {
 color:#000000;
 background-color:lightblue;
 }

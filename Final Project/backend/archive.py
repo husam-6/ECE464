@@ -22,7 +22,7 @@ def archive():
 @login_required
 def getArchive():
     if request.method == "POST":
-        startDate = datetime.strptime(request.form['start-date'],"%Y-%m-%d")
+        startDate = request.form['start-date']
         endDate = request.form['end-date']
         className = request.form['class_name']
         
@@ -50,6 +50,7 @@ def getArchive():
         tmp = retJSON
         # print(tmp)
         return render_template("filtered.html", tmp=tmp)
+
     if request.method == "GET":
         archived = Assignment.query.join(Entry).filter(((Entry.complete_date != None) & (Entry.viewType == True)) | ((Entry.user_id == current_user.id) & (Entry.complete_date != None))).all()
 

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}Pending Notifications{% endblock %}
+{% block head %}
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/displayNotifs.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<body id="archive-container">
+    <div>
+        <h1 id="archive-header"> Pending Notifications </h1> 
+    </div> 
+    <div id="filter-container">
+        <h1 id="filter-by">
+            Filter by...
+        </h1>
+            <form class="form" action="/getNotifs" method="post">
+                <input type="date" class="start-date" size="20" name="start-date" required>
+                <input type="date" class="end-date" size="20" name="end-date" required>
+                <button type="submit" id="submit-button" class="submit-button" name="submit_btn" value="p_submit"><i class="fa fa-binoculars fa-spin" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <h2 id="filter-by">
+        Notifications
+    </h2>
+
+    <div class="wrapper-notifs">
+        <ul class="notif_items">
+        </ul>
+    </div>
+    
+    <h2 id="filter-by">
+        Snoozes
+    </h2>
+    
+    <div class="wrapper-snoozes">
+        <ul class="snooze_items">
+        </ul>
+    </div>
+
+    
+    <div>
+        <a
+                href="{{ url_for('main.planner') }}"
+                role="button"
+                class="archive-return">Planner</a
+        >
+    </div>
+
+    <div>
+    <a
+            href="{{ url_for('notifs.notifMain') }}"
+            role="button"
+            class="grade">Notifications</a
+          >
+    </div> 
+
+
+    <a href="#archive-header">
+        <button id="myBtn" class="top-button" onclick="topfunction()"><i class="fas fa-angle-up"></i></button>
+    </a>
+</body>
+
+{% endblock %}
