@@ -140,20 +140,28 @@ app = create_app()
 app.app_context().push()
 def scheduled_job():
     with app.app_context():
-        print("Layth has a small dong!")
-        today = date.today()
-        notifs = Notification.query.filter(Notification.notif_date==today).all()
+        today = datetime.now()
+        today = today.replace(hour=0, minute=0, second=0, microsecond=0) 
+
+
         snoozes = Snooze.query.filter(Snooze.snooze_time==today).all()
         
+        notifs = db.session.query(Notification, Assignment).join(Notification, Notification.assignment_id == Assignment.id).filter(Notification.notif_date==today).all()
+
+        snoozes = Snooze.query.filter(Snooze.snooze_time==today).all()
+        
+        # print(notifs)
+        # print(snoozes)
+
         mail = Mail(current_app)
         
         for item in notifs: 
-            msg = Message(item.classname, sender='lurdytad@gmail.com', recipients=['ladturdy@gmail.com', 'husam.almanakly@cooper.edu', 'layth.yassin@cooper.edu'])
-            msg.body = "Reminder!"
+            msg = Message(item[1].class_name, sender='lurdytad@gmail.com', recipients=['ladturdy@gmail.com', 'husam.almanakly@cooper.edu', 'layth.yassin@cooper.edu'])
+            msg.body = "Reminder! 3 Days left for " + item[1].assignment
             mail.send(msg)
 
         for item in snoozes: 
-            msg = Message(notifs.classname, sender='lurdytad@gmail.com', recipients=['ladturdy@gmail.com', 'husam.almanakly@cooper.edu', 'layth.yassin@cooper.edu'])
+            msg = Message(snoozes.classname, sender='lurdytad@gmail.com', recipients=['ladturdy@gmail.com', 'husam.almanakly@cooper.edu', 'layth.yassin@cooper.edu'])
             msg.body = item.description
             mail.send(msg)
         # msg = Message("Hello", sender='lurdytad@gmail.com', recipients=['husam.almanakly@cooper.edu'])
@@ -165,6 +173,6 @@ def scheduled_job():
 
 sched = BackgroundScheduler(daemon=True, timezone="EST")
 # sched.add_job(scheduled_job,'interval',seconds=10)
-sched.add_job(scheduled_job,'cron',day_of_week="mon-sun", hour = "14")
+sched.add_job(scheduled_job,'cron',day_of_week="mon-sun", hour = "8")
 sched.start()
 

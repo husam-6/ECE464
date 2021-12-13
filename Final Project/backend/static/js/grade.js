@@ -46,7 +46,7 @@ function displayUngraded(ungraded){
         <input id="box1" type="number" step="0.01" class="weight" name="weight" placeholder="Weight" size="20" required  min="0" max="1">
         <input id="box2" type="number" step="1" class="grade" name="grade" placeholder="Grade" size="20" required  min="0" max="200">
         <a onclick="submission()" class='edit-grade'>
-            <i class="fas fa-edit"></i>
+           <i class="fas fa-marker"></i> 
         </a>
       </form>`;
       todoItemsList.append(li);

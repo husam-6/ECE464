@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 {% block title %}Pending Notifications{% endblock %}
 {% block head %}
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/archstyle.css') }}">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/notifsfilteredstyle.css') }}">
   <script type="text/javascript" src="{{ url_for('static', filename='js/displayNotifs.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
 
-<body id="archive-container">
+<body id="notifsFiltered-container">
     <div>
-        <h1 id="archive-header"> Pending Notifications </h1> 
+        <h1 id="notifsFiltered-header"> Pending Notifications </h1> 
     </div> 
     <div id="filter-container">
         <h1 id="filter-by">
@@ -59,7 +59,7 @@
     </div> 
 
 
-    <a href="#archive-header">
+    <a href="#notifsFiltered-header">
         <button id="myBtn" class="top-button" onclick="topfunction()"><i class="fas fa-angle-up"></i></button>
     </a>
 </body>

@@ -38,7 +38,7 @@ function showClasses(graded){
         letterGrade = 'F';
       }
 
-      li.innerHTML = `Class: ${graded[i].class} &emsp; &emsp; &emsp; <span id="left_align">Grade: ${graded[i].grade.toFixed(2)} -> ${letterGrade} </span>`;
+      li.innerHTML = `Class: ${graded[i].class} &emsp; &emsp; &emsp; <span id="left_align">Grade: ${graded[i].grade.toFixed(2)} <i class="fas fa-long-arrow-alt-right"></i> ${letterGrade} </span>`;
       todoListItems.append(li);
       // <button type="submit" class='recover-archive'><i class='fas fa-redo-alt fa-spin fa-3x'></i>
     }

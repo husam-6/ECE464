@@ -11,7 +11,7 @@ function getArchiveItems() {
     .then(json => {
         archivedItems = json; 
         archivedItems.sort(function(a,b){
-            return new Date(a.date) - new Date(b.date);
+            return new Date(a.completed) - new Date(b.completed);
         });
         console.log(archivedItems);
         displayArch(archivedItems);
