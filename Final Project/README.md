@@ -11,4 +11,5 @@ source scheduler-env/bin/activate
 ### Set the environment variable and run 
 
 export FLASK_APP=backend
+
 flask run
